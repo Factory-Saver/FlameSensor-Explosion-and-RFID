@@ -1,0 +1,295 @@
+#include <Wire.h> 
+#include <LiquidCrystal_I2C.h>
+
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+//for flame
+const int flamePin1 = 11;
+const int flamePin2 = 12;
+int Flame1 = HIGH;
+int Flame2 = HIGH;
+int redled1 = 3; // Flame1
+int redled2 = 2; // Flame2
+//for explosion
+int sensorPin1 = A0; 
+int sensorPin2 = A1;
+int ledPin1 = 5;
+int ledPin2 = 4;
+int sensorValue1 = 0; // variable to store the value coming from the sensor
+int sensorValue2 = 0;
+int const alarm = 100;
+
+//Speaker
+int speakerPin = 7;
+
+void setup() {
+  pinMode(redled1, OUTPUT);
+  pinMode(redled2, OUTPUT);
+  pinMode(flamePin1, INPUT);
+  pinMode(flamePin2, INPUT);
+  lcd.init();
+  lcd.backlight();//To Power ON the back light
+  Serial.begin(9600);
+ 
+  pinMode (ledPin1, OUTPUT);
+  pinMode (ledPin2, OUTPUT);
+}
+
+void loop() {
+  Flame1 = digitalRead(flamePin1);
+  Flame2 = digitalRead(flamePin2);
+  sensorValue1 = analogRead (sensorPin1);
+  sensorValue2 = analogRead (sensorPin2);
+  Serial.println(sensorValue1);
+
+  lcd.setCursor(3,0);
+  lcd.println("Welcome to    ");
+  lcd.setCursor(2,1);
+  lcd.println("Factory Saver!   ");
+
+
+  
+  if (Flame1 == LOW){
+    lcd.clear();
+    lcd.setCursor(0,0);
+    lcd.print("Alert There's a ");
+    lcd.setCursor(0,1);
+    lcd.print("FIRE! at Room1");
+   
+    
+    digitalWrite(redled1, HIGH);
+    digitalWrite(redled2, HIGH);
+    delay(500);
+    digitalWrite(redled1, LOW);
+    digitalWrite(redled2, LOW);
+    delay(500);
+    digitalWrite(redled1, HIGH);
+    digitalWrite(redled2, HIGH);
+    delay(500);
+    digitalWrite(redled1, LOW);
+    digitalWrite(redled2, LOW);
+    delay(500);
+    digitalWrite(redled1, HIGH);
+    digitalWrite(redled2, HIGH);
+    delay(500);
+    digitalWrite(redled1, LOW);
+    digitalWrite(redled2, LOW);
+    delay(500);
+    digitalWrite(redled1, HIGH);
+    digitalWrite(redled2, HIGH);
+    delay(500);
+    digitalWrite(redled1, LOW);
+    digitalWrite(redled2, LOW);
+    delay(500);
+    digitalWrite(redled1, HIGH);
+    digitalWrite(redled2, HIGH);
+    delay(500);
+    digitalWrite(redled1, LOW);
+    digitalWrite(redled2, LOW);
+    delay(500);
+    digitalWrite(redled1, HIGH);
+    digitalWrite(redled2, HIGH);
+    
+    speaker();
+    speaker();
+    digitalWrite(redled1, LOW);
+    digitalWrite(redled2, LOW);
+    delay(4000);
+    lcd.clear();
+  }
+ else if (Flame2 == LOW){
+    lcd.clear();
+    lcd.setCursor(0,0);
+    lcd.print("Alert There's a ");
+    lcd.setCursor(0,1);
+    lcd.print("FIRE! at Room2");
+  
+    digitalWrite(redled1, HIGH);
+    digitalWrite(redled2, HIGH);
+    delay(500);
+    digitalWrite(redled1, LOW);
+    digitalWrite(redled2, LOW);
+    delay(500);
+    digitalWrite(redled1, HIGH);
+    digitalWrite(redled2, HIGH);
+    delay(500);
+    digitalWrite(redled1, LOW);
+    digitalWrite(redled2, LOW);
+    delay(500);
+    digitalWrite(redled1, HIGH);
+    digitalWrite(redled2, HIGH);
+    delay(500);
+    digitalWrite(redled1, LOW);
+    digitalWrite(redled2, LOW);
+    delay(500);
+     digitalWrite(redled1, HIGH);
+    digitalWrite(redled2, HIGH);
+    delay(500);
+    digitalWrite(redled1, LOW);
+    digitalWrite(redled2, LOW);
+    delay(500);
+    digitalWrite(redled1, HIGH);
+    digitalWrite(redled2, HIGH);
+    delay(500);
+    digitalWrite(redled1, LOW);
+    digitalWrite(redled2, LOW);
+    delay(500);
+    digitalWrite(redled1, HIGH);
+    digitalWrite(redled2, HIGH);
+    
+    speaker();
+    speaker();
+    digitalWrite(redled1, LOW);
+    digitalWrite(redled2, LOW);
+    delay(4000);
+    lcd.clear();
+  }
+  else if (sensorValue1 >= alarm){
+    lcd.clear();
+    lcd.setCursor(0,0);
+    lcd.print("Alert Explosion!  ");
+    lcd.setCursor(0,1);
+    lcd.print("in Room 1");
+
+    digitalWrite(ledPin1, HIGH);
+    digitalWrite(ledPin2, HIGH);
+    delay(200);
+    digitalWrite(ledPin1, LOW);
+    digitalWrite(ledPin2, LOW);
+    delay(200);
+    digitalWrite(ledPin1, HIGH);
+    digitalWrite(ledPin2, HIGH);
+    delay(200);
+    digitalWrite(ledPin1, LOW);
+    digitalWrite(ledPin2, LOW);
+    delay(200);
+    digitalWrite(ledPin1, HIGH);
+    digitalWrite(ledPin2, HIGH);
+    delay(200);
+    digitalWrite(ledPin1, LOW);
+    digitalWrite(ledPin2, LOW);
+    delay(200);
+    digitalWrite(ledPin1, HIGH);
+    digitalWrite(ledPin2, HIGH);
+    delay(200);
+    digitalWrite(ledPin1, LOW);
+    digitalWrite(ledPin2, LOW);
+    delay(200);
+    digitalWrite(ledPin1, HIGH);
+    digitalWrite(ledPin2, HIGH);
+    delay(200);
+    digitalWrite(ledPin1, LOW);
+    digitalWrite(ledPin2, LOW);
+    delay(200);
+    digitalWrite(ledPin1, HIGH);
+    digitalWrite(ledPin2, HIGH);
+    delay(200);
+    digitalWrite(ledPin1, LOW);
+    digitalWrite(ledPin2, LOW);
+    delay(200);
+    digitalWrite(ledPin1, HIGH);
+    digitalWrite(ledPin2, HIGH);
+    delay(200);
+    digitalWrite(ledPin1, LOW);
+    digitalWrite(ledPin2, LOW);
+    delay(200);
+    digitalWrite(ledPin1, HIGH);
+    digitalWrite(ledPin2, HIGH);
+    delay(200);
+    digitalWrite(ledPin1, LOW);
+    digitalWrite(ledPin2, LOW);
+    delay(200);
+    digitalWrite(ledPin1, HIGH);
+    digitalWrite(ledPin2, HIGH);
+    speaker();
+    speaker();
+    digitalWrite(ledPin1, LOW);
+    digitalWrite(ledPin2, LOW);
+    
+    delay(4000);
+    lcd.clear();
+  }
+  else if (sensorValue2 >= alarm){
+    lcd.clear();
+    lcd.setCursor(0,0);
+    lcd.print("Alert Explosion!  ");
+    lcd.setCursor(0,1);
+    lcd.print("in Room 2");
+
+
+    digitalWrite(ledPin1, HIGH);
+    digitalWrite(ledPin2, HIGH);
+    delay(200);
+    digitalWrite(ledPin1, LOW);
+    digitalWrite(ledPin2, LOW);
+    delay(200);
+    digitalWrite(ledPin1, HIGH);
+    digitalWrite(ledPin2, HIGH);
+    delay(200);
+    digitalWrite(ledPin1, LOW);
+    digitalWrite(ledPin2, LOW);
+    delay(200);
+    digitalWrite(ledPin1, HIGH);
+    digitalWrite(ledPin2, HIGH);
+    delay(200);
+    digitalWrite(ledPin1, LOW);
+    digitalWrite(ledPin2, LOW);
+    delay(200);
+    digitalWrite(ledPin1, HIGH);
+    digitalWrite(ledPin2, HIGH);
+    delay(200);
+    digitalWrite(ledPin1, LOW);
+    digitalWrite(ledPin2, LOW);
+    delay(200);
+    digitalWrite(ledPin1, HIGH);
+    digitalWrite(ledPin2, HIGH);
+    delay(200);
+    digitalWrite(ledPin1, LOW);
+    digitalWrite(ledPin2, LOW);
+    delay(200);
+    digitalWrite(ledPin1, HIGH);
+    digitalWrite(ledPin2, HIGH);
+    delay(200);
+    digitalWrite(ledPin1, LOW);
+    digitalWrite(ledPin2, LOW);
+    delay(200);
+    digitalWrite(ledPin1, HIGH);
+    digitalWrite(ledPin2, HIGH);
+    delay(200);
+    digitalWrite(ledPin1, LOW);
+    digitalWrite(ledPin2, LOW);
+    delay(200);
+    digitalWrite(ledPin1, HIGH);
+    digitalWrite(ledPin2, HIGH);
+    delay(200);
+    digitalWrite(ledPin1, LOW);
+    digitalWrite(ledPin2, LOW);
+    delay(200);
+    digitalWrite(ledPin1, HIGH);
+    digitalWrite(ledPin2, HIGH);
+    speaker();
+    speaker();
+    digitalWrite(ledPin1, LOW);
+    digitalWrite(ledPin2, LOW);
+    
+    delay(4000);
+    lcd.clear();
+  }
+
+  
+}
+
+bool speaker() {
+  // Whoop up
+  for(int hz = 440; hz < 1000; hz++){
+    tone(speakerPin, hz, 50);
+    delay(5);
+  }
+  noTone(speakerPin);
+
+  // Whoop down
+  for(int hz = 1000; hz > 440; hz--){
+    tone(speakerPin, hz, 50);
+    delay(5);
+  }
+  noTone(speakerPin);
+} // Repeat
